@@ -5,12 +5,12 @@ const conferences = [
         name: 'Association for the Advancement of Artificial Intelligence',
         acronym: 'AAAI',
         category: 'AI',
-        submissionDeadline: '2024-08-15',
-        conferenceDate: '2025-02-15',
-        location: 'Vancouver, Canada',
-        website: 'https://aaai.org/aaai25/',
-        callForPapers: 'https://aaai.org/aaai25/call-for-papers/',
-        description: 'Premier AI conference covering all aspects of artificial intelligence research and applications.'
+        submissionDeadline: '2025-08-01',
+        conferenceDate: '2026-01-20',
+        location: 'Singapore',
+        website: 'https://aaai.org/conference/aaai/aaai-26/',
+        callForPapers: 'https://aaai.org/conference/aaai/aaai-26/main-technical-track-call/',
+        description: 'The 40th Annual AAAI Conference on Artificial Intelligence. Premier AI conference covering all aspects of artificial intelligence research and applications.'
     },
     {
         id: '2',
@@ -199,9 +199,11 @@ function getDeadlineStatusText(deadline) {
 function createConferenceCard(conference) {
     const deadlineStatus = getDeadlineStatus(conference.submissionDeadline);
     const deadlineText = getDeadlineStatusText(conference.submissionDeadline);
+    const daysUntil = getDaysUntilDeadline(conference.submissionDeadline);
+    const isPassed = daysUntil < 0;
 
     const card = document.createElement('div');
-    card.className = 'conference-card';
+    card.className = `conference-card ${isPassed ? 'deadline-passed' : ''}`;
     
     card.innerHTML = `
         <div class="conference-name">${conference.name}</div>
@@ -291,6 +293,13 @@ function filterAndDisplayConferences() {
         // For past deadlines, sort by most recent first
         return daysB - daysA;
     });
+
+    // Separate upcoming and passed deadlines
+    const upcoming = filtered.filter(conf => getDaysUntilDeadline(conf.submissionDeadline) >= 0);
+    const passed = filtered.filter(conf => getDaysUntilDeadline(conf.submissionDeadline) < 0);
+    
+    // Combine with upcoming first, then passed
+    filtered = [...upcoming, ...passed];
 
     // Clear existing content
     conferencesGrid.innerHTML = '';
