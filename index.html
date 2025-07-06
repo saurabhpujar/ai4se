@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI4SE Conferences</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>AI4SE Conferences</h1>
+            <p>Upcoming AI and Software Engineering Conferences</p>
+        </header>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="category-filter">Category</label>
+                <select id="category-filter">
+                    <option value="All">All Categories</option>
+                    <option value="AI">AI</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="search-filter">Search</label>
+                <input type="text" id="search-filter" placeholder="Search conferences...">
+            </div>
+        </div>
+
+        <div id="conferences-grid" class="conferences-grid">
+            <!-- Conference cards will be dynamically inserted here -->
+        </div>
+
+        <div id="no-conferences" class="no-conferences" style="display: none;">
+            <p>No conferences found matching your criteria.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
